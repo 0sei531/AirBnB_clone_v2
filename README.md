@@ -1,142 +1,122 @@
-<center> <h1>HBNB - The Console</h1> </center>
+HBNB_ENV: This variable specifies the running environment, which can be either "dev" or "test" for now, with "production" being added soon.
 
-This repository contains the initial stage of a student project to build a clone of the AirBnB website. This stage implements a backend interface, or console, to manage program data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions.
+HBNB_MYSQL_USER: This variable holds the username required to authenticate with your MySQL database.
 
----
+HBNB_MYSQL_PWD: This variable stores the password required for authenticating with the MySQL database.
 
-<center><h3>Repository Contents by Project Task</h3> </center>
+HBNB_MYSQL_HOST: Here, you specify the hostname or IP address of the MySQL server.
 
-| Tasks | Files | Description |
-| ----- | ----- | ------ |
-| 0: Authors/README File | [AUTHORS](https://github.com/justinmajetich/AirBnB_clone/blob/dev/AUTHORS) | Project authors |
-| 1: Pep8 | N/A | All code is pep8 compliant|
-| 2: Unit Testing | [/tests](https://github.com/justinmajetich/AirBnB_clone/tree/dev/tests) | All class-defining modules are unittested |
-| 3. Make BaseModel | [/models/base_model.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/base_model.py) | Defines a parent class to be inherited by all model classes|
-| 4. Update BaseModel w/ kwargs | [/models/base_model.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/base_model.py) | Add functionality to recreate an instance of a class from a dictionary representation|
-| 5. Create FileStorage class | [/models/engine/file_storage.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/engine/file_storage.py) [/models/_ _init_ _.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/__init__.py) [/models/base_model.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/base_model.py) | Defines a class to manage persistent file storage system|
-| 6. Console 0.0.1 | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) | Add basic functionality to console program, allowing it to quit, handle empty lines and ^D |
-| 7. Console 0.1 | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) | Update the console with methods allowing the user to create, destroy, show, and update stored data |
-| 8. Create User class | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) [/models/engine/file_storage.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/engine/file_storage.py) [/models/user.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/user.py) | Dynamically implements a user class |
-| 9. More Classes | [/models/user.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/user.py) [/models/place.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/place.py) [/models/city.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/city.py) [/models/amenity.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/amenity.py) [/models/state.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/state.py) [/models/review.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/review.py) | Dynamically implements more classes |
-| 10. Console 1.0 | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) [/models/engine/file_storage.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/engine/file_storage.py) | Update the console and file storage system to work dynamically with all  classes update file storage |
-<br>
-<br>
-<center> <h2>General Use</h2> </center>
+HBNB_MYSQL_DB: This variable contains the name of the database you'll be interacting with.
 
-1. First clone this repository.
+HBNB_TYPE_STORAGE: This variable determines the type of storage being used, which can either be "file" (indicating the use of FileStorage) or "db" (indicating the use of DBStorage).
+cmd module: The cmd module in Python provides a simple framework for writing line-oriented command interpreters. It can be useful for creating interactive command-line interfaces for your Python programs.
 
-3. Once the repository is cloned locate the "console.py" file and run it as follows:
-```
-/AirBnB_clone$ ./console.py
-```
-4. When this command is run the following prompt should appear:
-```
-(hbnb)
-```
-5. This prompt designates you are in the "HBnB" console. There are a variety of commands available within the console program.
+Packages concept page: This likely refers to understanding the concept of packages in Python. Packages are namespaces that contain multiple modules. They allow you to organize your code into hierarchical structures, making it easier to manage and reuse.
 
-##### Commands
-    * create - Creates an instance based on given class
+unittest module: The unittest module is Python's built-in testing framework. It provides a set of tools for constructing and running tests. Using unittest, you can create test cases, test suites, and perform assertions to verify the correctness of your code.
 
-    * destroy - Destroys an object based on class and UUID
+args/kwargs: *args and **kwargs are special syntax in Python used to pass a variable number of arguments to a function. *args allows you to pass a variable number of positional arguments, while **kwargs allows you to pass a variable number of keyword arguments.
 
-    * show - Shows an object based on class and UUID
+SQLAlchemy tutorial: SQLAlchemy is a popular Python SQL toolkit and Object-Relational Mapping (ORM) library. It simplifies the interaction with databases by allowing you to work with Python objects instead of raw SQL queries. A tutorial on SQLAlchemy will guide you through the process of setting up and using SQLAlchemy in your Python projects.
 
-    * all - Shows all objects the program has access to, or all objects of a given class
+How To Create a New User and Grant Permissions in MySQL: This resource likely provides instructions on creating new users and granting permissions in MySQL. It's essential knowledge for managing database access and security.
 
-    * update - Updates existing attributes an object based on class name and UUID
+Python3 and environment variables: This resource would cover how to work with environment variables in Python, particularly focusing on Python 3. Managing environment variables is crucial for configuring applications dynamically based on the environment they're running in.
 
-    * quit - Exits the program (EOF will as well)
+MySQL 8.0 SQL Statement Syntax: MySQL 8.0 SQL Statement Syntax documentation provides detailed information about the syntax and usage of various SQL statements in MySQL version 8.0. Understanding SQL syntax is essential for interacting with MySQL databases effectively.
 
+What is Unit testing and how to implement it in a large project:
 
-##### Alternative Syntax
-Users are able to issue a number of console command using an alternative syntax:
+Unit testing is a software testing technique where individual units or components of a software are tested in isolation to ensure they work correctly. It involves writing tests for each unit of code to verify its functionality. In a large project, unit testing is crucial for maintaining code quality, identifying bugs early, and facilitating code refactoring and modifications without introducing regressions.
 
-	Usage: <class_name>.<command>([<id>[name_arg value_arg]|[kwargs]])
-Advanced syntax is implemented for the following commands: 
+To implement unit testing in a large project:
 
-    * all - Shows all objects the program has access to, or all objects of a given class
+Choose a testing framework (e.g., unittest, pytest) that suits your project's requirements.
+Write test cases to cover various scenarios for each unit of code.
+Organize your tests into logical groups and directories.
+Automate the testing process by integrating tests into your CI/CD pipeline.
+Ensure good test coverage by regularly running tests and addressing failures promptly.
+*What is args and how to use it:
 
-	* count - Return number of object instances by class
+*args is used in Python to pass a variable number of positional arguments to a function. It allows you to accept an arbitrary number of arguments without explicitly specifying them.
 
-    * show - Shows an object based on class and UUID
+Example:
 
-	* destroy - Destroys an object based on class and UUID
+python
+Copy code
+def my_function(*args):
+    for arg in args:
+        print(arg)
 
-    * update - Updates existing attributes an object based on class name and UUID
+my_function(1, 2, 3)  # Output: 1 2 3
+**What is kwargs and how to use it:
 
-<br>
-<br>
-<center> <h2>Examples</h2> </center>
-<h3>Primary Command Syntax</h3>
+**kwargs is used in Python to pass a variable number of keyword arguments to a function. It allows you to accept arbitrary keyword arguments as a dictionary.
 
-###### Example 0: Create an object
-Usage: create <class_name>
-```
-(hbnb) create BaseModel
-```
-```
-(hbnb) create BaseModel
-3aa5babc-efb6-4041-bfe9-3cc9727588f8
-(hbnb)                   
-```
-###### Example 1: Show an object
-Usage: show <class_name> <_id>
+Example:
 
-```
-(hbnb) show BaseModel 3aa5babc-efb6-4041-bfe9-3cc9727588f8
-[BaseModel] (3aa5babc-efb6-4041-bfe9-3cc9727588f8) {'id': '3aa5babc-efb6-4041-bfe9-3cc9727588f8', 'created_at': datetime.datetime(2020, 2, 18, 14, 21, 12, 96959), 
-'updated_at': datetime.datetime(2020, 2, 18, 14, 21, 12, 96971)}
-(hbnb)  
-```
-###### Example 2: Destroy an object
-Usage: destroy <class_name> <_id>
-```
-(hbnb) destroy BaseModel 3aa5babc-efb6-4041-bfe9-3cc9727588f8
-(hbnb) show BaseModel 3aa5babc-efb6-4041-bfe9-3cc9727588f8
-** no instance found **
-(hbnb)   
-```
-###### Example 3: Update an object
-Usage: update <class_name> <_id>
-```
-(hbnb) update BaseModel b405fc64-9724-498f-b405-e4071c3d857f first_name "person"
-(hbnb) show BaseModel b405fc64-9724-498f-b405-e4071c3d857f
-[BaseModel] (b405fc64-9724-498f-b405-e4071c3d857f) {'id': 'b405fc64-9724-498f-b405-e4071c3d857f', 'created_at': datetime.datetime(2020, 2, 18, 14, 33, 45, 729889), 
-'updated_at': datetime.datetime(2020, 2, 18, 14, 33, 45, 729907), 'first_name': 'person'}
-(hbnb)
-```
-<h3>Alternative Syntax</h3>
+python
+Copy code
+def my_function(**kwargs):
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
 
-###### Example 0: Show all User objects
-Usage: <class_name>.all()
-```
-(hbnb) User.all()
-["[User] (99f45908-1d17-46d1-9dd2-b7571128115b) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 34, 92071), 'id': '99f45908-1d17-46d1-9dd2-b7571128115b', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 34, 92056)}", "[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
-```
+my_function(name="John", age=30)  # Output: name: John, age: 30
+How to handle named arguments in a function:
 
-###### Example 1: Destroy a User
-Usage: <class_name>.destroy(<_id>)
-```
-(hbnb) User.destroy("99f45908-1d17-46d1-9dd2-b7571128115b")
-(hbnb)
-(hbnb) User.all()
-(hbnb) ["[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
-```
-###### Example 2: Update User (by attribute)
-Usage: <class_name>.update(<_id>, <attribute_name>, <attribute_value>)
-```
-(hbnb) User.update("98bea5de-9cb0-4d78-8a9d-c4de03521c30", name "Todd the Toad")
-(hbnb)
-(hbnb) User.all()
-(hbnb) ["[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'name': 'Todd the Toad', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
-```
-###### Example 3: Update User (by dictionary)
-Usage: <class_name>.update(<_id>, <dictionary>)
-```
-(hbnb) User.update("98bea5de-9cb0-4d78-8a9d-c4de03521c30", {'name': 'Fred the Frog', 'age': 9})
-(hbnb)
-(hbnb) User.all()
-(hbnb) ["[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'name': 'Fred the Frog', 'age': 9, 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
-```
-<br>
+Named arguments in a function are handled using keyword arguments. When calling a function, you specify the argument name followed by the value.
+
+Example:
+
+python
+Copy code
+def greet(name, message):
+    print(f"Hello, {name}! {message}")
+
+greet(name="Alice", message="How are you?")  # Output: Hello, Alice! How are you?
+How to create a MySQL database:
+
+You can create a MySQL database using SQL CREATE DATABASE statement.
+
+Example:
+
+sql
+Copy code
+CREATE DATABASE my_database;
+How to create a MySQL user and grant it privileges:
+
+You can create a MySQL user and grant privileges using SQL CREATE USER and GRANT statements.
+
+Example:
+
+sql
+Copy code
+CREATE USER 'my_user'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON my_database.* TO 'my_user'@'localhost';
+What ORM means:
+
+ORM stands for Object-Relational Mapping. It's a programming technique that allows developers to map object-oriented models to relational database tables. ORM frameworks, like SQLAlchemy in Python, provide a layer of abstraction to interact with databases using objects and classes, eliminating the need to write raw SQL queries.
+
+How to map a Python Class to a MySQL table:
+
+You can map a Python class to a MySQL table using ORM frameworks like SQLAlchemy. Define a class that represents your table and use ORM features to define relationships, columns, and mappings.
+
+How to handle 2 different storage engines with the same codebase:
+
+You can achieve this by abstracting the storage implementation and providing different implementations based on configuration or runtime conditions. Use interfaces or abstract base classes to define a common interface for interacting with storage, and then implement separate classes for each storage engine.
+
+How to use environment variables:
+
+In Python, you can access environment variables using the os.environ dictionary from the os module. Set environment variables using shell commands or tools specific to your operating system.
+
+Example:
+
+python
+Copy code
+import os
+
+# Access environment variable
+db_host = os.environ.get('HBNB_MYSQL_HOST')
+
+# Set environment variable (for demonstration purposes)
+os.environ['MY_VAR'] = 'value'
