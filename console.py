@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """This module defines the HBNBCommand class, a subclass of cmd.Cmd"""
 import cmd
-from models import storage
+from models.engine.db_storage import storage
 
 
 class HBNBCommand(cmd.Cmd):
