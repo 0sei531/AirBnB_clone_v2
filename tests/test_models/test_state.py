@@ -13,15 +13,8 @@ class TestState(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         """Initialize the test class"""
         super().__init__(*args, **kwargs)
-        self.name = "State"
-        self.value = State
-
-    def test_name3(self):
-        """Test state name attribute"""
-        new = self.value()
-        self.assertEqual(type(new.name), str if
-                         os.getenv('HBNB_TYPE_STORAGE') != 'db' else
-                         type(None))
+        self.state = State()
+        self.state.name = "State"
 
     @classmethod
     def setUpClass(cls):

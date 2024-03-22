@@ -19,7 +19,7 @@ class TestUser(unittest.TestCase):
         cls.user.password = "secret"
 
     @classmethod
-    def tearDown(cls):
+    def tearDownClass(cls):
         """At the end of the test, this will tear it down"""
         del cls.user
 

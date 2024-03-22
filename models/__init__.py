@@ -1,36 +1,16 @@
 #!/usr/bin/python3
-"""
-Console Module
-"""
-import cmd
-import sys
-import os
-import re
-from datetime import datetime
-import uuid
-from models.base_model import BaseModel
-from models import storage
-from models.user import User
-from models.place import Place
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.review import Review
+"""This module initializes the storage engine"""
 from os import getenv
-from models.engine.db_storage import DBStorage
-from models.engine.file_storage import FileStorage
 
-class HBNBCommand(cmd.Cmd):
-    """ Contains the functionality for the HBNB console"""
 
-    # Code for HBNBCommand class methods goes here...
+storage_t = getenv("HBNB_TYPE_STORAGE")
 
-if __name__ == "__main__":
-    if getenv('HBNB_TYPE_STORAGE') == 'db':
-        storage = DBStorage()
-    else:
-        storage = FileStorage()
-
+if storage_t == 'db':
+    from models.engine.db_storage import DBStorage
+    storage = DBStorage()
     storage.reload()
-    HBNBCommand().cmdloop()
+else:
+    from models.engine.file_storage import FileStorage
+    storage = FileStorage()
+    storage.reload()
 
