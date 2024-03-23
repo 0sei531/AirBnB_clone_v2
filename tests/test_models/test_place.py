@@ -1,91 +1,87 @@
 #!/usr/bin/python3
-"""Test suite for Place class"""
+"""Test cases for the Place class"""
 
-import unittest
-import os
+from tests.test_models.test_base_model import test_basemodel
 from models.place import Place
-from models.base_model import BaseModel
+import pycodestyle
 
 
-class TestPlace(unittest.TestCase):
-    """Test cases for the Place class"""
+class TestPlace(test_basemodel):
+    """Test suite for the Place class"""
 
-    @classmethod
-    def setUpClass(cls):
-        """Set up for the test"""
-        cls.place = Place()
-        cls.place.city_id = "1234-abcd"
-        cls.place.user_id = "4321-dcba"
-        cls.place.name = "Death Star"
-        cls.place.description = "UNLIMITED POWER!!!!!"
-        cls.place.number_rooms = 1000000
-        cls.place.number_bathrooms = 1
-        cls.place.max_guest = 607360
-        cls.place.price_by_night = 10
-        cls.place.latitude = 160.0
-        cls.place.longitude = 120.0
-        cls.place.amenity_ids = ["1324-lksdjkl"]
+    def __init__(self, *args, **kwargs):
+        """Initialize test instance"""
+        super().__init__(*args, **kwargs)
+        self.name = "Place"
+        self.value = Place
 
-    @classmethod
-    def tearDownClass(cls):
-        """At the end of the test, tear it down"""
-        del cls.place
+    def test_city_id(self):
+        """Test if city_id attribute is of type str"""
+        new = self.value()
+        self.assertEqual(type(new.city_id), str)
 
-    def tearDown(self):
-        """Tear down"""
-        try:
-            os.remove("file.json")
-        except Exception:
-            pass
+    def test_user_id(self):
+        """Test if user_id attribute is of type str"""
+        new = self.value()
+        self.assertEqual(type(new.user_id), str)
 
-    def test_checking_for_docstring_place(self):
-        """Check for docstrings"""
-        self.assertIsNotNone(Place.__doc__)
+    def test_name(self):
+        """Test if name attribute is of type str"""
+        new = self.value()
+        self.assertEqual(type(new.name), str)
 
-    def test_attributes_place(self):
-        """Check if Place has attributes"""
-        self.assertTrue('id' in self.place.__dict__)
-        self.assertTrue('created_at' in self.place.__dict__)
-        self.assertTrue('updated_at' in self.place.__dict__)
-        self.assertTrue('city_id' in self.place.__dict__)
-        self.assertTrue('user_id' in self.place.__dict__)
-        self.assertTrue('name' in self.place.__dict__)
-        self.assertTrue('description' in self.place.__dict__)
-        self.assertTrue('number_rooms' in self.place.__dict__)
-        self.assertTrue('number_bathrooms' in self.place.__dict__)
-        self.assertTrue('max_guest' in self.place.__dict__)
-        self.assertTrue('price_by_night' in self.place.__dict__)
-        self.assertTrue('latitude' in self.place.__dict__)
-        self.assertTrue('longitude' in self.place.__dict__)
-        self.assertTrue('amenity_ids' in self.place.__dict__)
+    def test_description(self):
+        """Test if description attribute is of type str"""
+        new = self.value()
+        self.assertEqual(type(new.description), str)
 
-    def test_is_subclass_place(self):
-        """Test if Place is a subclass of BaseModel"""
-        self.assertTrue(issubclass(self.place.__class__, BaseModel), True)
+    def test_number_rooms(self):
+        """Test if number_rooms attribute is of type int"""
+        new = self.value()
+        self.assertEqual(type(new.number_rooms), int)
 
-    def test_attribute_types_place(self):
-        """Test attribute types for Place"""
-        self.assertEqual(type(self.place.city_id), str)
-        self.assertEqual(type(self.place.user_id), str)
-        self.assertEqual(type(self.place.name), str)
-        self.assertEqual(type(self.place.description), str)
-        self.assertEqual(type(self.place.number_rooms), int)
-        self.assertEqual(type(self.place.number_bathrooms), int)
-        self.assertEqual(type(self.place.max_guest), int)
-        self.assertEqual(type(self.place.price_by_night), int)
-        self.assertEqual(type(self.place.latitude), float)
-        self.assertEqual(type(self.place.longitude), float)
-        self.assertEqual(type(self.place.amenity_ids), list)
+    def test_number_bathrooms(self):
+        """Test if number_bathrooms attribute is of type int"""
+        new = self.value()
+        self.assertEqual(type(new.number_bathrooms), int)
 
-    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == 'db', 'Not file engine')
-    def test_save_place(self):
-        """Test if the save method works"""
-        self.place.save()
-        self.assertNotEqual(self.place.created_at, self.place.updated_at)
+    def test_max_guest(self):
+        """Test if max_guest attribute is of type int"""
+        new = self.value()
+        self.assertEqual(type(new.max_guest), int)
 
-    def test_to_dict_place(self):
-        """Test if to_dict method works"""
-        self.assertEqual('to_dict' in dir(self.place), True)
+    def test_price_by_night(self):
+        """Test if price_by_night attribute is of type int"""
+        new = self.value()
+        self.assertEqual(type(new.price_by_night), int)
+
+    def test_latitude(self):
+        """Test if latitude attribute is of type float"""
+        new = self.value()
+        self.assertEqual(type(new.latitude), float)
+
+    def test_longitude(self):
+        """Test if longitude attribute is of type float"""
+        new = self.value()
+        self.assertEqual(type(new.longitude), float)
+
+    def test_amenity_ids(self):
+        """Test if amenity_ids attribute is of type list"""
+        new = self.value()
+        self.assertEqual(type(new.amenity_ids), list)
+
+
+class TestPEP8(unittest.TestCase):
+    """Test PEP8 compliance for place.py"""
+
+    def test_pep8(self):
+        """Test PEP8 compliance for place.py"""
+        style = pycodestyle.StyleGuide(quiet=True)
+        result = style.check_files(['models/place.py'])
+        self.assertEqual(
+            result.total_errors, 0,
+            "Found code style errors (and warnings)."
+        )
 
 
 if __name__ == "__main__":

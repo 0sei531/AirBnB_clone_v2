@@ -1,25 +1,26 @@
 #!/usr/bin/python3
-"""Test suite for the City class"""
+"""Test cases for the City class"""
 
 import unittest
 import os
+import pycodestyle
 from models.city import City
 from models.base_model import BaseModel
 
 
 class TestCity(unittest.TestCase):
-    """Test cases for the City class"""
+    """Test suite for the City class"""
 
     @classmethod
     def setUpClass(cls):
-        """Set up the test"""
+        """Set up test fixtures"""
         cls.city = City()
         cls.city.name = "LA"
         cls.city.state_id = "CA"
 
     @classmethod
     def tearDownClass(cls):
-        """Tear down the test"""
+        """Clean up after the test"""
         del cls.city
 
     def tearDown(self):
@@ -29,12 +30,21 @@ class TestCity(unittest.TestCase):
         except Exception:
             pass
 
-    def test_checking_for_docstring(self):
-        """Check if docstrings are present"""
+    def test_pep8(self):
+        """Test PEP8 compliance for city.py"""
+        style = pycodestyle.StyleGuide(quiet=True)
+        result = style.check_files(['models/city.py'])
+        self.assertEqual(
+            result.total_errors, 0,
+            "Found code style errors (and warnings)."
+        )
+
+    def test_docstrings(self):
+        """Check for docstrings"""
         self.assertIsNotNone(City.__doc__)
 
     def test_attributes(self):
-        """Check if City has attributes"""
+        """Test presence of attributes"""
         self.assertTrue('id' in self.city.__dict__)
         self.assertTrue('created_at' in self.city.__dict__)
         self.assertTrue('updated_at' in self.city.__dict__)
@@ -43,22 +53,37 @@ class TestCity(unittest.TestCase):
 
     def test_is_subclass(self):
         """Test if City is a subclass of BaseModel"""
-        self.assertTrue(issubclass(City, BaseModel))
+        self.assertTrue(
+            issubclass(self.city.__class__, BaseModel),
+            "City is not a subclass of BaseModel"
+        )
 
     def test_attribute_types(self):
         """Test attribute types for City"""
-        self.assertEqual(type(self.city.name), str)
-        self.assertEqual(type(self.city.state_id), str)
+        self.assertIsInstance(self.city.name, str)
+        self.assertIsInstance(self.city.state_id, str)
 
-    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == 'db', 'Not file engine')
     def test_save(self):
         """Test if save method works"""
         self.city.save()
         self.assertNotEqual(self.city.created_at, self.city.updated_at)
 
     def test_to_dict(self):
-        """Test if to_dict method works"""
+        """Test if to_dict method returns dictionary"""
         self.assertEqual('to_dict' in dir(self.city), True)
+
+
+class TestPEP8(unittest.TestCase):
+    """Test PEP8 compliance for the city module"""
+
+    def test_pep8(self):
+        """Test PEP8 compliance for city.py"""
+        style = pycodestyle.StyleGuide(quiet=True)
+        result = style.check_files(['models/city.py'])
+        self.assertEqual(
+            result.total_errors, 0,
+            "Found code style errors (and warnings)."
+        )
 
 
 if __name__ == "__main__":
