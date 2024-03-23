@@ -1,61 +1,61 @@
 #!/usr/bin/python3
-"""
-Fabric script that creates and distributes an archive to web servers,
-using the functions do_pack and do_deploy.
-"""
+# Fabfile to distribute an archive to a web server.
+import os.path
+from fabric.api import env, put, run
 
-from fabric.api import env, local, put, run
-from datetime import datetime
-import os
-
-env.hosts = ['44.192.38.3', '3.239.82.120']
-
-
-def do_pack():
-    """Generates a tgz archive from the contents of the web_static folder."""
-    try:
-        local('mkdir -p versions')
-        datetime_format = '%Y%m%d%H%M%S'
-        archive_path = 'versions/web_static_{}.tgz'.format(
-            datetime.now().strftime(datetime_format))
-        local('tar -cvzf {} web_static'.format(archive_path))
-        print('web_static packed: {} -> {}'.format(archive_path,
-              os.path.getsize(archive_path)))
-        return archive_path
-    except:
-        return None
+env.hosts = ["104.196.168.90", "35.196.46.172"]
 
 
 def do_deploy(archive_path):
-    """Distributes an archive to the web servers."""
-    if not os.path.exists(archive_path):
-        return False
-    try:
-        file_n = archive_path.split("/")[-1]
-        no_ext = file_n.split(".")[0]
-        path = "/data/web_static/releases/"
-        put(archive_path, '/tmp/')
-        run('mkdir -p {}{}/'.format(path, no_ext))
-        run('tar -xzf /tmp/{} -C {}{}/'.format(file_n, path, no_ext))
-        run('rm /tmp/{}'.format(file_n))
-        run('mv {0}{1}/web_static/* {0}{1}/'.format(path, no_ext))
-        run('rm -rf {}{}/web_static'.format(path, no_ext))
-        run('rm -rf /data/web_static/current')
-        run('ln -s {}{}/ /data/web_static/current'.format(path, no_ext))
-        print('New version deployed!')
-        return True
-    except:
+    """Distributes an archive to a web server.
+
+    Args:
+        archive_path (str): The path of the archive to distribute.
+    Returns:
+        True if the deployment was successful, False otherwise.
+    """
+    if not os.path.isfile(archive_path):
+        print("Archive not found:", archive_path)
         return False
 
+    file = os.path.basename(archive_path)
+    name = file.split(".")[0]
 
-def deploy():
-    """Creates and distributes an archive to the web servers."""
-    archive_path = do_pack()
-    if archive_path is None:
+    # Upload archive
+    if put(archive_path, "/tmp/{}".format(file)).failed:
+        print("Failed to upload archive to remote server")
         return False
-    return do_deploy(archive_path)
 
+    # Create release directory
+    if run("mkdir -p /data/web_static/releases/{}/".format(name)).failed:
+        print("Failed to create release directory")
+        return False
 
-if __name__ == "__main__":
-    deploy()
+    # Extract archive
+    if run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
+           format(file, name)).failed:
+        print("Failed to extract archive")
+        return False
+
+    # Cleanup
+    if run("rm /tmp/{}".format(file)).failed:
+        print("Failed to remove archive from /tmp")
+        return False
+
+    # Move contents and create symbolic link
+    if run("mv /data/web_static/releases/{}/web_static/* "
+           "/data/web_static/releases/{}/".format(name, name)).failed:
+        print("Failed to move contents to release directory")
+        return False
+
+    # Remove redundant directory and update current symlink
+    if run("rm -rf /data/web_static/releases/{}/web_static && "
+           "rm -rf /data/web_static/current && "
+           "ln -s /data/web_static/releases/{}/ /data/web_static/current".
+           format(name, name)).failed:
+        print("Failed to update current symlink")
+        return False
+
+    print("Deployment successful")
+    return True
 
