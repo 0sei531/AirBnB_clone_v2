@@ -10,9 +10,9 @@ Routes:
     /number/<n>: Displays 'n is a number' only if <n> is an integer.
 """
 from flask import Flask
+from flask import abort
 
 app = Flask(__name__)
-app.url_map.strict_slashes = False
 
 
 @app.route("/", strict_slashes=False)

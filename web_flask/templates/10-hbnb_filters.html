@@ -2,50 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AirBnB clone</title>
-    <link rel="stylesheet" href="../static/styles/4-common.css">
-    <link rel="stylesheet" href="../static/styles/3-header.css">
-    <link rel="stylesheet" href="../static/styles/3-footer.css">
-    <link rel="stylesheet" href="../static/styles/6-filters.css">
-    <link rel="icon" href="../static/images/icon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HBNB Filters</title>
+    <link rel="stylesheet" href="/static/styles/3-footer.css">
+    <link rel="stylesheet" href="/static/styles/3-header.css">
+    <link rel="stylesheet" href="/static/styles/4-common.css">
+    <link rel="stylesheet" href="/static/styles/6-filters.css">
 </head>
 <body>
-    <header>
-        <div id="header_logo"></div>
+    <header class="clearfix">
+        <div class="logo">
+            <img src="/static/images/logo.png" alt="Logo">
+            <h1>Holberton BnB</h1>
+        </div>
+        <div class="title">
+            <h1>Places</h1>
+            <nav>
+                <ul>
+                    <li><a href="#">Places</a></li>
+                    <li>|</li>
+                    <li><a href="#">People</a></li>
+                    <li>|</li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
-    <div class="container">
-        <section class="filters">
-            <div class="locations">
+    <section class="filters-section">
+        <div class="filters">
+            <h2>Filters</h2>
+            <div class="filters-places">
                 <h3>States</h3>
-                <h4>&nbsp;</h4>
                 <div class="popover">
-                    <ul>
-                        {% for state in states|sort(attribute='name') %}
-                            <li><strong>{{ state.name }}</strong>
-                                <ul>
-                                    {% for city in state.cities|sort(attribute='name') %}
-                                        <li>{{ city.name }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                    <input type="checkbox" name="state" id="popover-all-states" value="All">
+                    <label for="popover-all-states">All</label>
+                    {% for state in states %}
+                        <input type="checkbox" name="state" id="popover-{{ state.id }}" value="{{ state.id }}">
+                        <label for="popover-{{ state.id }}">{{ state.name }}</label>
+                    {% endfor %}
                 </div>
             </div>
-            <div class="amenities">
+            <div class="filters-amenities">
                 <h3>Amenities</h3>
-                <h4>&nbsp;</h4>
-                <ul class="popover">
-                    {% for amenity in amenities|sort(attribute='name') %}
-                        <li>{{ amenity.name }}</li>
+                <div class="popover">
+                    {% for amenity in amenities %}
+                        <input type="checkbox" name="amenity" id="popover-{{ amenity.id }}" value="{{ amenity.id }}">
+                        <label for="popover-{{ amenity.id }}">{{ amenity.name }}</label>
                     {% endfor %}
-                </ul>
+                </div>
             </div>
-            <button>Search</button>
-        </section>
-    </div>
+        </div>
+    </section>
     <footer>
-        <p>Holberton School</p>
+        <div class="footer">
+            <p>Footer</p>
+        </div>
     </footer>
 </body>
 </html>

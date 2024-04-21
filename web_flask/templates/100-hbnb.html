@@ -2,111 +2,59 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AirBnB clone</title>
-    <link rel="stylesheet" href="../static/styles/reset.css">
-    <link rel="stylesheet" href="../static/styles/4-common.css">
-    <link rel="stylesheet" href="../static/styles/3-header.css">
-    <link rel="stylesheet" href="../static/styles/3-footer.css">
-    <link rel="stylesheet" href="../static/styles/6-filters.css">
-    <link rel="stylesheet" href="../static/styles/8-places.css">
-    <link rel="icon" href="../static/images/icon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HBNB</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/3-header.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/4-common.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/6-filters.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/8-places.css') }}" type="text/css">
 </head>
 
 <body>
-    <header>
-        <div id="header_logo"></div>
+    <header class="header">
+        <div class="title">
+            <h1>HBNB</h1>
+            <h2>Places to stay</h2>
+        </div>
     </header>
-    <div class="container">
-        <section class="filters">
-            <button>Search</button>
-            <div class="locations">
-                <h3>States</h3>
-                <h4>&nbsp;</h4>
-                <div class="popover">
-                    <ul>
-                        {% for state in states|sort(attribute='name') %}
-                        <li>
-                            <h2>{{state.name}}</h2>
-                            <ul>
-                                {% for city in state.cities|sort(attribute='name') %}
-                                <li>
-                                    <h4>{{city.name}}</h4>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            <div class="amenities">
-                <h3>Amenities</h3>
-                <h4>&nbsp;</h4>
-                <ul class="popover">
-                    {% for amenity in amenities|sort(attribute='name') %}
-                    <li>
-                        <h4>{{amenity.name}}</h4>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </section>
 
-        <section class="places">
-            <h1>Places</h1>
-            {% for place in places|sort(attribute='name') %}
-            <article>
-                <div class="headline">
-                    <h2>{{place.name}}</h2>
-                    <div class="price_by_night">${{place.price_by_night}}</div>
-                </div>
-                <div class="information">
-                    <div class="max_guest">
-                        <div class="guest_icon"></div>
-                        <p>{{place.max_guest}} Guests</p>
-                    </div>
-                    <div class="number_rooms">
-                        <div class="bed_icon"></div>
-                        <p>{{place.number_rooms}} Bedroom</p>
-                    </div>
-                    <div class="number_bathrooms">
-                        <div class="bath_icon"></div>
-                        <p>{{place.number_bathrooms}} Bathroom</p>
-                    </div>
-                </div>
-                <div class="user"><b>Owner</b>: {{"%s %s"|format(place.user.first_name, place.user.last_name)}}</div>
-                <div class="description">
-                    {% autoescape false %}
-                    {{place.description}}
-                    {% endautoescape %}
-                </div>
-                <!-- New Section from the second template -->
-                <div class="amenities">
-                    <h2>Amenities</h2>
-                    {% for amenity in place.amenities|sort(attribute="name") %}
-                    <ul>
-                        <li><p>{{ amenity.name }}</p></li>
-                    </ul>
-                    {% endfor %}
-                </div>
-                <div class="reviews">
-                    <h2>{{ place.reviews.__len__() }} Reviews</h2>
-                    {% for review in place.reviews %}
-                    <h3>From {{ review.user.first_name }} the {{ review.created_at.date().__str__() }}</h3>
-                    <ul>
-                        <li><p>{{ review.text|safe }}</p></li>
-                    </ul>
-                    {% endfor %}
-                </div>
-                <!-- End of New Section -->
-            </article>
+    <div class="filters">
+        <h3>States</h3>
+        <div class="popover">
+            {% for state in states %}
+            <div class="filter checkbox">
+                <label>
+                    <input type="checkbox" name="state" value="{{ state.id }}"> {{ state.name }}
+                </label>
+            </div>
             {% endfor %}
-        </section>
+        </div>
+        <h3>Amenities</h3>
+        <div class="popover">
+            {% for amenity in amenities %}
+            <div class="filter checkbox">
+                <label>
+                    <input type="checkbox" name="amenity" value="{{ amenity.id }}"> {{ amenity.name }}
+                </label>
+            </div>
+            {% endfor %}
+        </div>
     </div>
-    <footer>
-        <p>Holberton School</p>
+
+    <div class="places">
+        {% for place in places %}
+        <div class="place">
+            <div class="name">{{ place.name }}</div>
+            <div class="price_by_night">${{ place.price_by_night }}</div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <footer class="footer">
+        <p>
+            Holberton School | Advanced Higher Level Programming
+        </p>
     </footer>
 </body>
 
