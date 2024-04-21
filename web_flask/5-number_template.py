@@ -11,8 +11,7 @@ Routes:
     /number_template/<n>: Displays a HTML page with H1 tag containing 'Number: <n>'
                            only if <n> is an integer.
 """
-from flask import Flask, render_template
-from flask import abort
+from flask import Flask, render_template, abort
 
 app = Flask(__name__)
 
